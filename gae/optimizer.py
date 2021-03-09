@@ -6,11 +6,13 @@ FLAGS = flags.FLAGS
 
 
 class OptimizerVAE(object):
-    def __init__(self, preds, labels, model, num_nodes, pos_weight, norm, target=None, auxiliary_labels=None, vae_scope='vae', discriminator_scope='discriminator'):
+    def __init__(self, preds, labels, model, num_nodes, pos_weight, norm, target=None, auxiliary_labels=None, vae_scope='vae', discriminator_scope='discriminator', gamma=1):
         preds_sub = preds
         labels_sub = labels       
         self.target = target 
         self.optimizer = tf.train.AdamOptimizer(learning_rate=FLAGS.learning_rate)
+
+        self.gamma = gamma
 
         # self.discriminator_variables = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, scope=discriminator_scope)
         self.discriminator_variables = [var for var in tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES) if discriminator_scope in var.name]
@@ -50,12 +52,23 @@ class OptimizerVAE(object):
             ## self.vae_loss = self.loss + self.classification_loss + beta*self.kl  beta loss 
             self.vae_loss = self.reconstruction_loss + self.classification_loss + self.kl            
 
-        self.total_correlation = tf.log(tf.sigmoid(model.true_tc_logits) / (1 - tf.sigmoid(model.true_tc_logits)))
-        self.factor_vae_loss = self.vae_loss + self.total_correlation
 
-        self.discriminator_loss = tf.nn.sigmoid_cross_entropy_with_logits(labels=tf.ones_like(model.true_tc_logits), logits=model.true_tc_logits) +  \
-                                  tf.nn.sigmoid_cross_entropy_with_logits(labels=tf.zeros_like(model.shuffled_tc_logits), logits=model.shuffled_tc_logits)
-            
+        # tc = E[log(p_real)-log(p_fake)] = E[logit_real - logit_fake]
+        tc_loss_per_sample = model.logits_z[:, 0] - model.logits_z[:, 1]
+        self.total_correlation = tf.reduce_mean(tc_loss_per_sample, axis=0)
+        
+        # self.total_correlation = tf.log(tf.sigmoid(model.true_tc_logits) / (1 - tf.sigmoid(model.true_tc_logits)))
+        self.factor_vae_loss = tf.add(
+            self.vae_loss, self.gamma * self.total_correlation, name="factor_VAE_loss")
+
+
+        # self.discriminator_loss = tf.nn.sigmoid_cross_entropy_with_logits(labels=tf.ones_like(model.true_tc_logits), logits=model.true_tc_logits) +  \
+         #                          tf.nn.sigmoid_cross_entropy_with_logits(labels=tf.zeros_like(model.shuffled_tc_logits), logits=model.shuffled_tc_logits)
+        self.discriminator_loss = tf.add(
+            0.5 * tf.reduce_mean(tf.log(model.probs_z[:, 0])),
+            0.5 * tf.reduce_mean(tf.log(model.probs_z_shuffle[:, 1])),
+            name="discriminator_loss")
+
         self.vae_grads_and_vars = self.optimizer.compute_gradients(self.factor_vae_loss, var_list=self.vae_variables)  
         self.vae_opt_op = self.optimizer.apply_gradients(self.vae_grads_and_vars)
 

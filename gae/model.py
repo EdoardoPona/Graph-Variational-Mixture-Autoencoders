@@ -159,8 +159,12 @@ class GCNModelVAE(Model):
 
         discriminator = Discriminator(logging=self.logging, name='discriminator')
 
-        self.true_tc_logits = discriminator(self.z_sample)
-        self.shuffled_tc_logits = discriminator(self.z_sample_shuffled)
+        # self.true_tc_logits = discriminator(self.z_sample)
+        self.logits_z = discriminator(self.z_sample)
+        self.logits_z_shuffle = discriminator(self.z_sample_shuffled)
+
+        self.probs_z = tf.nn.softmax(self.logits_z)
+        self.probs_z_shuffle = tf.nn.softmax(self.logits_z_shuffle)
 
         # reconstructing
         self.z = tf.reshape(self.gmm.sample(1), (self.input_dim, FLAGS.hidden2))

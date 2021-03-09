@@ -165,7 +165,7 @@ class Discriminator(Layer):
     def __init__(self, hidden_size=256, depth=2, name="discriminator", **kwargs):
         super(Discriminator, self).__init__(**kwargs)
         self.middle_layers = [tfkl.Dense(hidden_size, activation=tf.nn.leaky_relu) for i in range(depth-1)]
-        self.output_layer = tfkl.Dense(1)
+        self.output_layer = tfkl.Dense(2)
 
     def _call(self, X): 
         h = X
