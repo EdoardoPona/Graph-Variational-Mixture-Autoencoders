@@ -54,53 +54,57 @@ def mask_test_edges(adj):
     test_edges = edges[test_edge_idx]
     val_edges = edges[val_edge_idx]
     train_edges = np.delete(edges, np.hstack([test_edge_idx, val_edge_idx]), axis=0)
-
+    print('DONE: train_edges')
     def ismember(a, b, tol=5):
         rows_close = np.all(np.round(a - b[:, None], tol) == 0, axis=-1)
         return np.any(rows_close)
 
+    
+    '''
+    Ideally, we would like to sample based on the join distribution, 
+    but that doesn't fit to memory (most of the time!)
+    The alternative is to sample a row and a column independntly. 
+
+    '''
+    rows = np.random.choice(adj.shape[0], size=len(test_edges))
+    cols = np.random.choice(adj.shape[0], size=len(test_edges))
     test_edges_false = []
-    while len(test_edges_false) < len(test_edges):
-        idx_i = np.random.randint(0, adj.shape[0])
-        idx_j = np.random.randint(0, adj.shape[0])
-        if idx_i == idx_j:
-            continue
-        if ismember([idx_i, idx_j], edges_all):
-            continue
-        if test_edges_false:
-            if ismember([idx_j, idx_i], np.array(test_edges_false)):
-                continue
-            if ismember([idx_i, idx_j], np.array(test_edges_false)):
-                continue
-        test_edges_false.append([idx_i, idx_j])
+    for row, col in zip(rows, cols):
+        if adj[row, col] == 0:
+            test_edges_false.append([row, col])
+    print('DONE: test_edges_false')
+    # while len(test_edges_false) < len(test_edges):
+    #     idx_i = np.random.randint(0, adj.shape[0])
+    #     idx_j = np.random.randint(0, adj.shape[0])
+    #     if idx_i == idx_j:
+    #         continue
+    #     if ismember([idx_i, idx_j], edges_all):
+    #         continue
+    #     if test_edges_false:
+    #         if ismember([idx_j, idx_i], np.array(test_edges_false)):
+    #             continue
+    #         if ismember([idx_i, idx_j], np.array(test_edges_false)):
+    #             continue
+    #     test_edges_false.append([idx_i, idx_j])
 
+    rows = np.random.choice(adj.shape[0], size=len(val_edges))
+    cols = np.random.choice(adj.shape[0], size=len(val_edges))
     val_edges_false = []
-    while len(val_edges_false) < len(val_edges):
-        idx_i = np.random.randint(0, adj.shape[0])
-        idx_j = np.random.randint(0, adj.shape[0])
-        if idx_i == idx_j:
-            continue
-        if ismember([idx_i, idx_j], train_edges):
-            continue
-        if ismember([idx_j, idx_i], train_edges):
-            continue
-        if ismember([idx_i, idx_j], val_edges):
-            continue
-        if ismember([idx_j, idx_i], val_edges):
-            continue
-        if val_edges_false:
-            if ismember([idx_j, idx_i], np.array(val_edges_false)):
-                continue
-            if ismember([idx_i, idx_j], np.array(val_edges_false)):
-                continue
-        val_edges_false.append([idx_i, idx_j])
+    for row, col in zip(rows, cols):
+        if adj[row, col] == 0:
+            val_edges_false.append([row, col])
+    print('DONE: val_edges_false')
 
-    assert ~ismember(test_edges_false, edges_all)
-    assert ~ismember(val_edges_false, edges_all)
-    assert ~ismember(val_edges, train_edges)
-    assert ~ismember(test_edges, train_edges)
-    assert ~ismember(val_edges, test_edges)
-
+    def is_member(x, y):
+        return len(set([','.join([str(l) for l in el]) for el in x]) & set([','.join([str(l) for l in el]) for el in y])) == 0
+    
+    print(is_member(test_edges_false, edges_all))
+    print(is_member(val_edges_false, edges_all))
+    print(is_member(val_edges, train_edges))
+    print(is_member(test_edges, train_edges))
+    print(is_member(val_edges, test_edges))
+    
+  
     data = np.ones(train_edges.shape[0])
 
     # Re-build adj matrix
@@ -109,3 +113,4 @@ def mask_test_edges(adj):
 
     # NOTE: these edge lists only contain single direction of edge!
     return adj_train, train_edges, val_edges, val_edges_false, test_edges, test_edges_false
+

@@ -1,7 +1,13 @@
 from gae.initializations import *
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+import tensorflow_probability as tfp
 
-flags = tf.app.flags
+tfkl = tf.keras.layers
+tfd = tfp.distributions
+
+
+# flags = tf.app.flags
+flags = tf.compat.v1.flags
 FLAGS = flags.FLAGS
 
 # global unique layer ID dictionary for layer name assignment
@@ -118,3 +124,52 @@ class InnerProductDecoder(Layer):
         x = tf.reshape(x, [-1])
         outputs = self.act(x)
         return outputs
+
+
+class GaussianExponentialDecoder(Layer):
+    """Decoder model layer for link prediction."""
+    def __init__(self, input_dim, kernel_parameter=0.1, dropout=0., act=tf.nn.sigmoid, **kwargs):
+        super(GaussianExponentialDecoder, self).__init__(**kwargs)
+        self.dropout = dropout
+        self.act = act
+        self.kernel_parameter =kernel_parameter
+
+    def _call(self, inputs):
+        inputs = tf.nn.dropout(inputs, 1-self.dropout)
+        sqrt = tf.math.square(inputs)
+        s = tf.reshape(tf.math.reduce_sum(sqrt, axis=1), [-1,1]) + tf.reduce_sum(sqrt, axis=1)
+        dot = tf.tensordot(inputs, tf.transpose(inputs), 1)
+        sqdist = s - 2* dot
+        param = tf.cast(-0.5 * (1/ self.kernel_parameter), dtype='float32')
+        x = tf.math.exp(tf.multiply(sqdist, param))
+        x = tf.reshape(x, [-1])
+        outputs = self.act(x)
+        return outputs
+
+
+class AuxiliaryPredictor(Layer):
+    """Decoder model layer for auxiliary prediction."""
+    def __init__(self, input_dim, output_dim, dropout=0., act=tf.nn.sigmoid, **kwargs):
+        super(AuxiliaryPredictor, self).__init__(**kwargs)
+        with tf.variable_scope(self.name + '_vars'):
+            self.vars['weights'] = weight_variable_glorot(input_dim, output_dim, name="weights")
+        self.act = act
+
+    def _call(self, inputs):
+        x = tf.matmul(inputs,  self.vars['weights'])
+        outputs = self.act(x)
+        return outputs
+
+
+class Discriminator(Layer): 
+    def __init__(self, hidden_size=256, depth=2, name="discriminator", **kwargs):
+        super(Discriminator, self).__init__(**kwargs)
+        self.middle_layers = [tfkl.Dense(hidden_size, activation=tf.nn.leaky_relu) for i in range(depth-1)]
+        self.output_layer = tfkl.Dense(1)
+
+    def _call(self, X): 
+        h = X
+        for layer in self.middle_layers: 
+            h = layer(h) 
+        return self.output_layer(h)
+
