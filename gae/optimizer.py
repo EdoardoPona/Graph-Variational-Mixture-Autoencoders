@@ -11,6 +11,7 @@ class OptimizerVAE(object):
         labels_sub = labels       
         self.target = target 
         self.optimizer = tf.train.AdamOptimizer(learning_rate=FLAGS.learning_rate)
+        self.disc_optimizer = tf.train.AdamOptimizer(learning_rate=FLAGS.learning_rate)
 
         self.gamma = gamma
 
@@ -54,26 +55,27 @@ class OptimizerVAE(object):
 
 
         # tc = E[log(p_real)-log(p_fake)] = E[logit_real - logit_fake]
-        tc_loss_per_sample = model.logits_z[:, 0] - model.logits_z[:, 1]
+        epsilon = 1e-12    # NOTE we don't really have stability issues anymore 
+
+        D = model.true_tc_logits + epsilon
+
+        tc_loss_per_sample = D[:, 0] - D[:, 1]
         self.total_correlation = tf.reduce_mean(tc_loss_per_sample, axis=0)
         
         # self.total_correlation = tf.log(tf.sigmoid(model.true_tc_logits) / (1 - tf.sigmoid(model.true_tc_logits)))
-        self.factor_vae_loss = tf.add(
-            self.vae_loss, self.gamma * self.total_correlation, name="factor_VAE_loss")
-
-
-        # self.discriminator_loss = tf.nn.sigmoid_cross_entropy_with_logits(labels=tf.ones_like(model.true_tc_logits), logits=model.true_tc_logits) +  \
-         #                          tf.nn.sigmoid_cross_entropy_with_logits(labels=tf.zeros_like(model.shuffled_tc_logits), logits=model.shuffled_tc_logits)
-        self.discriminator_loss = tf.add(
-            0.5 * tf.reduce_mean(tf.log(model.probs_z[:, 0])),
-            0.5 * tf.reduce_mean(tf.log(model.probs_z_shuffle[:, 1])),
-            name="discriminator_loss")
+        self.factor_vae_loss = tf.add(self.vae_loss, self.gamma * self.total_correlation, name="factor_VAE_loss")
 
         self.vae_grads_and_vars = self.optimizer.compute_gradients(self.factor_vae_loss, var_list=self.vae_variables)  
         self.vae_opt_op = self.optimizer.apply_gradients(self.vae_grads_and_vars)
 
-        self.discriminator_grads_and_vars = self.optimizer.compute_gradients(self.discriminator_loss, var_list=self.discriminator_variables)
-        self.discriminator_opt_op = self.optimizer.apply_gradients(self.discriminator_grads_and_vars)
+        self.discriminator_loss = - tf.add(
+            0.5 * tf.reduce_mean(tf.math.log(model.true_tc_probs[:, 0] + epsilon)),
+            0.5 * tf.reduce_mean(tf.math.log(model.shuffled_tc_probs[:, 1] + epsilon)),
+            name="discriminator_loss")
+
+        # NOTE why two different optimizers? 
+        self.discriminator_grads_and_vars = self.disc_optimizer.compute_gradients(self.discriminator_loss, var_list=self.discriminator_variables)
+        self.discriminator_opt_op = self.disc_optimizer.apply_gradients(self.discriminator_grads_and_vars)
 
         self.correct_prediction = tf.equal(tf.cast(tf.greater_equal(tf.sigmoid(preds_sub), 0.5), tf.int32),
                                            tf.cast(labels_sub, tf.int32))        
