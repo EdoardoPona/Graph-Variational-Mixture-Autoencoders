@@ -33,3 +33,14 @@ def load_graph(WORKING_PATH, YEAR):
     loader = np.load(WORKING_PATH+"weighted_procurement_"+str(YEAR)+"-"+str(YEAR+1)+".npz")
     return sp.csr_matrix((loader['data'], loader['indices'], loader['indptr']), shape=loader['shape'])
 
+
+def load_disease_network():
+    return sp.csr_matrix(np.load('gae/data/diseasome/disease_network_adj.npy'))
+
+def load_disease_network_types(one_hot=False):
+    data = np.load('gae/data/diseasome/disease_network_types.npy') 
+    data = LabelEncoder().fit_transform(data)
+    if one_hot:
+        return OneHotEncoder(sparse=False).fit_transform(np.array(data).reshape((-1, 1)))
+    return data
+

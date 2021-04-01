@@ -15,12 +15,15 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import average_precision_score
 
 from gae.optimizer import OptimizerVAE
-from gae.input_data import load_graph, load_regions
+from gae.input_data import load_graph, load_regions, load_disease_network, load_disease_network_types
 from gae.model import GCNModelVAE
 from gae.preprocessing import preprocess_graph, construct_feed_dict, sparse_to_tuple, mask_test_edges
 
 
 tf.disable_eager_execution()
+
+import os 
+print(os.listdir('.'))
 
 
 # Settings
@@ -45,7 +48,8 @@ WORKING_PATH = 'gae/data/'
 
 YEAR = 2014
 
-adj = load_graph(WORKING_PATH, YEAR)[0:100, 0:100]
+# adj = load_graph(WORKING_PATH, YEAR)[0:100, 0:100]
+adj = load_disease_network() 
 adj_orig = adj
 adj_orig = adj_orig - sp.dia_matrix((adj_orig.diagonal()[np.newaxis, :], [0]), shape=adj_orig.shape)
 adj_orig.eliminate_zeros()
@@ -58,14 +62,15 @@ adj_norm = preprocess_graph(adj)
 
 
 # target = np.ones((100, 6))
-target = load_regions(WORKING_PATH, YEAR, one_hot=True)[:100]
+# target = load_regions(WORKING_PATH, YEAR, one_hot=True)[:100]
+target = load_disease_network_types(one_hot=True) 
 flags.DEFINE_integer('auxiliary_pred_dim', target.shape[1], 'Number of dimensions for auxiliary prediction')
 
 if FLAGS.features == 0:
     features = sp.identity(adj.shape[0])  # featureless
 else: 
-    features = sp.diags(load_regions(WORKING_PATH, YEAR, one_hot=False)[:100])
-
+    # features = sp.diags(load_regions(WORKING_PATH, YEAR, one_hot=False)[:100])
+    features = sp.diags(load_disease_network_types(one_hot=False))
 
 # Define placeholders
 placeholders = {
