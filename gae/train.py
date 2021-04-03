@@ -24,6 +24,7 @@ tf.disable_eager_execution()
 
 import os 
 print(os.listdir('.'))
+os.environ['CUDA_VISIBLE_DEVICES'] = "0"    # won't work otherwise 
 
 
 # Settings
@@ -160,7 +161,7 @@ val_roc_score = []
 adj_label = adj_train + sp.eye(adj_train.shape[0])
 adj_label = sparse_to_tuple(adj_label)
 
-epochs = 100
+epochs = int(1e3)
 
 # Train model
 for epoch in range(epochs + 1):
@@ -207,4 +208,17 @@ print("Optimization Finished!")
 roc_score, ap_score = get_roc_score(test_edges, test_edges_false)
 print('Test ROC score: ' + str(roc_score))
 print('Test AP score: ' + str(ap_score))
+
+# save variables 
+outs = sess.run([model.z_mean, model.z_log_std, model.z,  model.qy_logit ], feed_dict=feed_dict)
+
+with open('disease_network_mean.npy', 'wb') as f:
+  np.save(f, outs[0])
+with open('disease_network_log_std.npy', 'wb') as f:
+  np.save(f, outs[1])
+with open('disease_network_z.npy', 'wb') as f:
+  np.save(f, outs[2])
+with open('disease_network_y.npy', 'wb') as f:
+  np.save(f, outs[3]) 
+
 

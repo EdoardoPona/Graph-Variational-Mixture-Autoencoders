@@ -7,3 +7,4 @@ dist/
 *.npy
 venv/
 *.swp
+saved/
