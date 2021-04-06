@@ -45,6 +45,7 @@ def mask_test_edges(adj):
     edges = adj_tuple[0]
     edges_all = sparse_to_tuple(adj)[0]
     num_test = int(np.floor(edges.shape[0] / 10.))
+    neg_to_pos_ratio = 5
     num_val = int(np.floor(edges.shape[0] / 20.))
 
     all_edge_idx = list(range(edges.shape[0]))
@@ -54,6 +55,7 @@ def mask_test_edges(adj):
     test_edges = edges[test_edge_idx]
     val_edges = edges[val_edge_idx]
     train_edges = np.delete(edges, np.hstack([test_edge_idx, val_edge_idx]), axis=0)
+    
     print('DONE: train_edges')
     def ismember(a, b, tol=5):
         rows_close = np.all(np.round(a - b[:, None], tol) == 0, axis=-1)
@@ -66,8 +68,8 @@ def mask_test_edges(adj):
     The alternative is to sample a row and a column independntly. 
 
     '''
-    rows = np.random.choice(adj.shape[0], size=len(test_edges))
-    cols = np.random.choice(adj.shape[0], size=len(test_edges))
+    rows = np.random.choice(adj.shape[0], size=len(test_edges*neg_to_pos_ratio))
+    cols = np.random.choice(adj.shape[0], size=len(test_edges*neg_to_pos_ratio))
     test_edges_false = []
     for row, col in zip(rows, cols):
         if adj[row, col] == 0:
