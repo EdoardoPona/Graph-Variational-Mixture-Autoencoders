@@ -90,7 +90,8 @@ features_nonzero = features[1].shape[0]
 # Create model
 model = GCNModelVAE(placeholders, num_features, num_nodes, features_nonzero, decoder='mixture')
 
-pos_weight = float(adj.shape[0] * adj.shape[0] - adj.sum()) / adj.sum()
+# pos_weight = float(adj.shape[0] * adj.shape[0] - adj.sum()) / adj.sum()
+pos_weight = 0.1
 norm = adj.shape[0] * adj.shape[0] / float((adj.shape[0] * adj.shape[0] - adj.sum()) * 2)
 
 
@@ -212,13 +213,13 @@ print('Test AP score: ' + str(ap_score))
 # save variables 
 outs = sess.run([model.z_mean, model.z_log_std, model.z,  model.qy_logit ], feed_dict=feed_dict)
 
-with open('disease_network_mean.npy', 'wb') as f:
+with open('gae/data/saved/disease_network_mean.npy', 'wb') as f:
   np.save(f, outs[0])
-with open('disease_network_log_std.npy', 'wb') as f:
+with open('gae/data/saved/disease_network_log_std.npy', 'wb') as f:
   np.save(f, outs[1])
-with open('disease_network_z.npy', 'wb') as f:
+with open('gae/data/saved/disease_network_z.npy', 'wb') as f:
   np.save(f, outs[2])
-with open('disease_network_y.npy', 'wb') as f:
+with open('gae/data/saved/disease_network_y.npy', 'wb') as f:
   np.save(f, outs[3]) 
 
 
