@@ -1,17 +1,14 @@
 import tensorflow.compat.v1 as tf
 
-# flags = tf.app.flags
-flags = tf.compat.v1.flags
-FLAGS = flags.FLAGS
-
-
 class OptimizerVAE(object):
-    def __init__(self, preds, labels, model, num_nodes, pos_weight, norm, target=None, auxiliary_labels=None, vae_scope='vae', discriminator_scope='discriminator', gamma=1):
+    def __init__(self, preds, labels, model, num_nodes, pos_weight, 
+                 norm, target=None, auxiliary_labels=None, vae_scope='vae', 
+                 discriminator_scope='discriminator', gamma=1, lr=1e-2):
         preds_sub = preds
         labels_sub = labels       
         self.target = target 
-        self.optimizer = tf.train.AdamOptimizer(learning_rate=FLAGS.learning_rate)
-        self.disc_optimizer = tf.train.AdamOptimizer(learning_rate=FLAGS.learning_rate)
+        self.optimizer = tf.train.AdamOptimizer(learning_rate=lr)
+        self.disc_optimizer = tf.train.AdamOptimizer(learning_rate=lr)
 
         self.gamma = gamma
 

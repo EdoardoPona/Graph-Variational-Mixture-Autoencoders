@@ -5,11 +5,6 @@ import tensorflow_probability as tfp
 tfkl = tf.keras.layers
 tfd = tfp.distributions
 
-
-# flags = tf.app.flags
-flags = tf.compat.v1.flags
-FLAGS = flags.FLAGS
-
 # global unique layer ID dictionary for layer name assignment
 _LAYER_UIDS = {}
 

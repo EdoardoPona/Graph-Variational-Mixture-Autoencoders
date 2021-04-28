@@ -28,21 +28,18 @@ os.environ['CUDA_VISIBLE_DEVICES'] = "0"    # won't work otherwise
 
 
 # Settings
-# flags = tf.app.flags
-flags = tf.compat.v1.flags
-FLAGS = flags.FLAGS
-flags.DEFINE_float('learning_rate', 1e-2, 'Initial learning rate.')
-flags.DEFINE_integer('epochs', 200, 'Number of epochs to train.')
-flags.DEFINE_integer('hidden1', 32, 'Number of units in hidden layer 1.')
-flags.DEFINE_integer('hidden2', 16, 'Number of units in hidden layer 2.')
-flags.DEFINE_float('weight_decay', 0., 'Weight for L2 loss on embedding matrix.')
-flags.DEFINE_float('dropout', 0., 'Dropout rate (1 - keep probability).')
-
-# TODO use this flag to swtich between gaussian and mixture and factor 
-flags.DEFINE_string('model', 'gcn_vae', 'Model string.')   
-flags.DEFINE_integer('features', 1, 'Whether to use features (1) or not (0).')
-
-model_str = FLAGS.model
+experiment_params = {
+    'learning_rate': 1e-2,
+    'epochs': 200,
+    'hidden1': 32,
+    'hidden2': 16,
+    'weight_decay': 0. ,
+    'dropout': 0.2 ,
+    'model': 'gcn_vae',
+    'features': 1,      # whether to use features (1) or not (0)
+    'auxiliary_pred_dim': None     # will be filled later
+}
+model_str = experiment_params['model']
 
 WORKING_PATH = 'gae/data/'
 
@@ -65,9 +62,9 @@ adj_norm = preprocess_graph(adj)
 # target = np.ones((100, 6))
 # target = load_regions(WORKING_PATH, YEAR, one_hot=True)[:100]
 target = load_disease_network_types(one_hot=True) 
-flags.DEFINE_integer('auxiliary_pred_dim', target.shape[1], 'Number of dimensions for auxiliary prediction')
+experiment_params['auxiliary_pred_dim'] = target.shape[1]
 
-if FLAGS.features == 0:
+if experiment_params['features'] == 0:
     features = sp.identity(adj.shape[0])  # featureless
 else: 
     # features = sp.diags(load_regions(WORKING_PATH, YEAR, one_hot=False)[:100])
@@ -88,7 +85,9 @@ num_features = features[2][1]
 features_nonzero = features[1].shape[0]
 
 # Create model
-model = GCNModelVAE(placeholders, num_features, num_nodes, features_nonzero, decoder='mixture')
+model = GCNModelVAE(placeholders, num_features, num_nodes, 
+                    features_nonzero, experiment_params['hidden1'], experiment_params['hidden2'], 
+                    experiment_params['auxiliary_pred_dim'], decoder='mixture')
 
 pos_weight = float(adj.shape[0] * adj.shape[0] - adj.sum()) / adj.sum()
 # pos_weight = 0.1
@@ -107,7 +106,7 @@ with tf.name_scope('optimizer'):
                        auxiliary_labels=False,
                        target=tf.reshape(
                            tf.constant(target),
-                           (-1, FLAGS.auxiliary_pred_dim)),
+                           (-1, experiment_params['auxiliary_pred_dim'])),
                        pos_weight=pos_weight,
                        norm=norm)
 
@@ -170,7 +169,7 @@ for epoch in range(epochs + 1):
     t = time.time()
     # Construct feed dictionary
     feed_dict = construct_feed_dict(adj_norm, adj_label, features, placeholders)
-    feed_dict.update({placeholders['dropout']: FLAGS.dropout})
+    feed_dict.update({placeholders['dropout']: experiment_params['dropout']})
 
     # Run single weight update
     # outs = sess.run([opt.opt_op, opt.cost, opt.accuracy, opt.loss, opt.kl, opt.classification_loss], feed_dict=feed_dict)
@@ -201,7 +200,7 @@ for epoch in range(epochs + 1):
 
     if epoch == epochs:
       feed_dict = construct_feed_dict(adj_norm, adj_label, features, placeholders)
-      feed_dict.update({placeholders['dropout']: FLAGS.dropout})
+      feed_dict.update({placeholders['dropout']: experiment_params['dropout']})
 
       outs = sess.run([model.z_mean, model.z_log_std, model.z, model.qy_logit ], feed_dict=feed_dict)
 

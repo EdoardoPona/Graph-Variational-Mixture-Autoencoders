@@ -6,11 +6,6 @@ tfkl = tf.keras.layers
 tfd = tfp.distributions
 
 
-# flags = tf.app.flags
-flags = tf.compat.v1.flags
-FLAGS = flags.FLAGS
-
-
 def shuffle(a):
     permuted_rows = []
     for i in range(a.get_shape()[1]):
@@ -59,7 +54,9 @@ class Model(object):
 
 
 class GCNModelVAE(Model):
-    def __init__(self, placeholders, num_features, num_nodes, features_nonzero,  decoder='linear', **kwargs):
+    def __init__(self, placeholders, num_features, num_nodes, features_nonzero,  
+                 hidden1, hidden2, auxiliary_pred_dim, decoder='linear', **kwargs):
+
         super(GCNModelVAE, self).__init__(**kwargs)
 
         self.inputs = placeholders['features']
@@ -70,34 +67,36 @@ class GCNModelVAE(Model):
         self.dropout = placeholders['dropout']
         self.decoder = decoder
         self.discriminator_sample_size = 64         
+        self.hidden1 = hidden1
+        self.hidden2 = hidden2
+        self.auxiliary_pred_dim = auxiliary_pred_dim
         self.build()
-
-
+        
     def _build(self):
       self.hidden1 = GraphConvolutionSparse(input_dim=self.input_dim,
-                                              output_dim=FLAGS.hidden1,
+                                              output_dim=self.hidden1,
                                               adj=self.adj,
                                               features_nonzero=self.features_nonzero,
                                               act=tf.nn.relu,
                                               dropout=self.dropout,
                                               logging=self.logging)(self.inputs)
       if self.decoder  == 'linear':
-        self.z_mean = GraphConvolution(input_dim=FLAGS.hidden1,
-                                      output_dim=FLAGS.hidden2,
+        self.z_mean = GraphConvolution(input_dim=self.hidden1,
+                                      output_dim=self.hidden2,
                                       name='z_',
                                       adj=self.adj,
                                       act=lambda x: x,
                                       dropout=self.dropout,
                                       logging=self.logging)(self.hidden1)
-        self.z_log_std = GraphConvolution(input_dim=FLAGS.hidden1,
-                                          output_dim=FLAGS.hidden2,
+        self.z_log_std = GraphConvolution(input_dim=self.hidden1,
+                                          output_dim=self.hidden2,
                                           name='std_',
                                           adj=self.adj,
                                           act=lambda x: x,
                                           dropout=self.dropout,
                                           logging=self.logging)(self.hidden1)
-        self.z = self.z_mean + tf.random_normal([self.n_samples, FLAGS.hidden2]) * tf.exp(self.z_log_std)
-        self.reconstructions = InnerProductDecoder(input_dim=FLAGS.hidden2,
+        self.z = self.z_mean + tf.random_normal([self.n_samples, self.hidden2]) * tf.exp(self.z_log_std)
+        self.reconstructions = InnerProductDecoder(input_dim=self.hidden2,
                                       act=lambda x: x,
                                       logging=self.logging)(self.z)
 
@@ -105,8 +104,8 @@ class GCNModelVAE(Model):
           # q(y|x)
         self.qy_logit = GraphConvolution(
                                     name='qy_',
-                                    input_dim=FLAGS.hidden1,
-                                    output_dim=FLAGS.auxiliary_pred_dim,
+                                    input_dim=self.hidden1,
+                                    output_dim=self.auxiliary_pred_dim,
                                     adj=self.adj,
                                     act=lambda x: x,
                                     dropout=self.dropout,
@@ -116,28 +115,28 @@ class GCNModelVAE(Model):
         # q(z|x,z)
         means = []
         stds = []
-        for k in range(FLAGS.auxiliary_pred_dim):
+        for k in range(self.auxiliary_pred_dim):
           # (batch, category, z-dim) dimensions
           means.append(GraphConvolution(name='{}_mean'.format(k),
-                                              input_dim=FLAGS.hidden1,
-                                              output_dim=FLAGS.hidden2,
+                                              input_dim=self.hidden1,
+                                              output_dim=self.hidden2,
                                               adj=self.adj,
                                               act=lambda x: x,
                                               dropout=self.dropout,
                                               logging=self.logging)(self.hidden1))
           stds.append(GraphConvolution(name='{}_std'.format(k),
-                                                  input_dim=FLAGS.hidden1,
-                                                  output_dim=FLAGS.hidden2,
+                                                  input_dim=self.hidden1,
+                                                  output_dim=self.hidden2,
                                                   adj=self.adj,
                                                   act=lambda x: x,
                                                   dropout=self.dropout,
                                                   logging=self.logging)(self.hidden1))
         self.z_mean = tf.reshape(
             tf.stack(means, axis=1, name='stack_1'),
-            shape=(self.input_dim, FLAGS.auxiliary_pred_dim, FLAGS.hidden2))
+            shape=(self.input_dim, self.auxiliary_pred_dim, self.hidden2))
         self.z_log_std  = tf.reshape(
             tf.stack(stds, axis=1, name='stack_2'),
-            shape=(self.input_dim, FLAGS.auxiliary_pred_dim, FLAGS.hidden2))
+            shape=(self.input_dim, self.auxiliary_pred_dim, self.hidden2))
 
         self.gmm =  tfd.MixtureSameFamily(mixture_distribution=tfd.Categorical(
                         probs=self.qy),
@@ -146,7 +145,7 @@ class GCNModelVAE(Model):
                             scale_diag=tf.exp(self.z_log_std)))
 
         self.prior =  tfd.MixtureSameFamily(mixture_distribution=tfd.Categorical(
-                        probs=tf.fill(tf.shape(self.qy), 1/FLAGS.auxiliary_pred_dim)),
+                        probs=tf.fill(tf.shape(self.qy), 1/self.auxiliary_pred_dim)),
                         components_distribution=tfd.MultivariateNormalDiag(
                             loc=tf.fill(tf.shape(self.z_mean), 0.0),
                             scale_diag=tf.fill(tf.shape(self.z_mean), 1.0)))
@@ -154,7 +153,7 @@ class GCNModelVAE(Model):
         # Total Correlation
         # self.z_sample = tf.reshape(self.gmm.sample(self.discriminator_sample_size), (self.discriminator_sample_size, self.input_dim*hidden2))
         # gmm.sample(1)  should sample the whole graph
-        self.z_sample = random_choice(tf.reshape(self.gmm.sample(1), (self.input_dim, FLAGS.hidden2)), num_samples=self.discriminator_sample_size)
+        self.z_sample = random_choice(tf.reshape(self.gmm.sample(1), (self.input_dim, self.hidden2)), num_samples=self.discriminator_sample_size)
         self.z_sample_shuffled =  shuffle(self.z_sample)
 
         discriminator = Discriminator(logging=self.logging, name='discriminator')
@@ -166,10 +165,10 @@ class GCNModelVAE(Model):
         self.shuffled_tc_probs = tf.nn.softmax(self.shuffled_tc_logits)
 
         # reconstructing
-        self.z = tf.reshape(self.gmm.sample(1), (self.input_dim, FLAGS.hidden2))
+        self.z = tf.reshape(self.gmm.sample(1), (self.input_dim, self.hidden2))
         # self.prio = tf.reshape(self.prior_m.sample(1), (hidden2, self.input_dim,1))
         # p(x|z,y)
-        self.reconstructions = InnerProductDecoder(input_dim=FLAGS.hidden2,
+        self.reconstructions = InnerProductDecoder(input_dim=self.hidden2,
                                                     act=lambda x: x,
                                                     logging=self.logging)(self.z)
 
