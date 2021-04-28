@@ -1,0 +1,517 @@
+Id,Label,Disease class
+222,Osteoporosis,Bone
+306,Epiphyseal dysplasia,Bone
+277,Osteopetrosis,Bone
+286,Osteogenesis imperfecta,Bone
+288,"Achondrogenesis-hypochondrogenesis, type II",Bone
+311,OSMED syndrome,Bone
+405,"Dentin dysplasia, type II",Bone
+406,"Dentinogenesis imperfecta, Shields type",Bone
+407,Achondrogenesis Ib,Bone
+577,Osseous heteroplasia,Bone
+637,"Apparent mineralocorticoid excess, hypertension due to",Bone
+743,Bone mineral density variability,Bone
+745,"Hyperostosis, endosteal",Bone
+746,Osteoporosis-pseudoglioma syndrome,Bone
+1148,Arthropathy,Bone
+47,Leukemia,Cancer
+114,Colon cancer,Cancer
+137,Breast cancer,Cancer
+139,Prostate cancer,Cancer
+634,Thyroid carcinoma,Cancer
+117,Gastric cancer,Cancer
+155,Lymphoma,Cancer
+59,Pancreatic cancer,Cancer
+197,Ovarian cancer,Cancer
+224,Hepatic adenoma,Cancer
+775,Renal cell carcinoma,Cancer
+200,Melanoma,Cancer
+384,Glioblastoma,Cancer
+199,Adenocarcinoma,Cancer
+203,Wilms tumor,Cancer
+237,Myelogenous leukemia,Cancer
+248,Endometrial carcinoma,Cancer
+314,Lung cancer,Cancer
+474,Bladder cancer,Cancer
+497,Rhabdomyosarcoma,Cancer
+790,Meningioma,Cancer
+938,Basal cell carcinoma,Cancer
+968,Esophageal cancer,Cancer
+113,Adenomas,Cancer
+118,Turcot syndrome,Cancer
+132,Squamous cell carcinoma,Cancer
+201,Nonsmall cell lung cancer,Cancer
+574,Pituitary ACTH-secreting adenoma,Cancer
+742,Lipoma,Cancer
+795,Neurofibromatosis,Cancer
+984,Paragangliomas,Cancer
+985,Pheochromocytoma,Cancer
+156,T-cell lymphoblastic leukemia,Cancer
+181,von Hippel-Lindau syndrome,Cancer
+191,Cowden disease,Cancer
+192,Polyposis,Cancer
+485,Cancer susceptibility,Cancer
+691,Gastrointestinal stromal tumor,Cancer
+692,Germ cell tumor,Cancer
+772,Multiple endocrine neoplasia,Cancer
+773,Parathyroid adenoma,Cancer
+784,Cafe-au-lait spots,Cancer
+785,Muir-Torre syndrome,Cancer
+838,Neuroblastoma,Cancer
+853,Medullary thyroid carcinoma,Cancer
+1067,Li-Fraumeni syndrome,Cancer
+1070,Osteosarcoma,Cancer
+1145,Medulloblastoma,Cancer
+112,"Adenoma, periampullary",Cancer
+115,"Desmoid disease, hereditary",Cancer
+116,Gardner syndrome,Cancer
+198,Papillary serous carcinoma of the peritoneum,Cancer
+225,Non-Hodgkin lymphoma,Cancer
+252,Li Fraumeni syndrome,Cancer
+253,Orolaryngeal cancer,Cancer
+334,Pilomatricoma,Cancer
+475,Cervical carcinoma,Cancer
+693,Mast cell leukemia,Cancer
+701,Stomach cancer,Cancer
+748,Juvenile polyposis/hereditary hemorrhagic telangiectasia syndrome,Cancer
+769,Adrenal adenoma,Cancer
+771,Carcinoid tumor of lung,Cancer
+794,Lynch cancer family syndrome II,Cancer
+810,Neurofibrosarcoma,Cancer
+833,Neurofibromatosis,Cancer
+834,Neurobromatosis-Noonan syndrome,Cancer
+835,Watson syndrome,Cancer
+836,Schwannomatosis,Cancer
+882,Dermatobrosarcoma protuberans,Cancer
+883,Giant-cell fibroblastoma,Cancer
+923,Adrenocortical carcinoma,Cancer
+925,"Pigmented adrenocortical disease, primary isolated",Cancer
+942,Lhermitte-Duclos syndrome,Cancer
+943,Oligodendroglioma,Cancer
+956,Retinoblastoma,Cancer
+986,"Carcinoid tumors, intestinal",Cancer
+987,Merkel cell carcinoma,Cancer
+1025,Peutz-Jeghers syndrome,Cancer
+1065,Adrenal cortical carcinoma,Cancer
+1066,Histiocytoma,Cancer
+1068,Multiple malignancy syndrome,Cancer
+1069,Nasopharyngeal carcinoma,Cancer
+1089,"Hemangioblastoma, cerebellar",Cancer
+1120,Salivary adenoma,Cancer
+1121,Uterine leiomyoma,Cancer
+1132,Oligodontia-colorectal cancer syndrome,Cancer
+1152,Mesothelioma,Cancer
+1153,Sezary syndrome,Cancer
+54,Cardiomyopathy,Cardiovascular
+65,Hypertension,Cardiovascular
+99,Myocardial infarction,Cardiovascular
+110,Long QT syndrome,Cardiovascular
+37,Coronary artery disease,Cardiovascular
+327,Atrial fibrillation,Cardiovascular
+78,Tetralogy of Fallot,Cardiovascular
+79,Preeclampsia,Cardiovascular
+226,Ventricular tachycardia,Cardiovascular
+328,Atrioventricular block,Cardiovascular
+402,Arrhythmogenic right ventricular dysplasia,Cardiovascular
+100,Stroke,Cardiovascular
+98,Atherosclerosis,Cardiovascular
+424,Supravalvar aortic stenosis,Cardiovascular
+453,Aortic aneurysm,Cardiovascular
+552,Hypoplastic left heart syndrome,Cardiovascular
+686,Acquired long QT syndrome,Cardiovascular
+841,Coronary spasms,Cardiovascular
+924,"Myxoma, intracardiac",Cardiovascular
+954,Capillary malformations,Cardiovascular
+960,Hyperproreninemia,Cardiovascular
+977,Brugada syndrome,Cardiovascular
+978,Heart block,Cardiovascular
+979,Sick sinus syndrome,Cardiovascular
+980,"Ventricular brillation, idiopathic",Cardiovascular
+1034,Noncompaction of left ventricular myocardium,Cardiovascular
+1242,Wolff-Parkinson-White syndrome,Cardiovascular
+285,Ehlers-Danlos syndrome,Connective tissue disorder
+236,Rheumatoid arthritis,Connective tissue disorder
+290,Osteoarthritis,Connective tissue disorder
+165,Cutis laxa,Connective tissue disorder
+287,Marfan syndrome,Connective tissue disorder
+408,Atelosteogenesis,Connective tissue disorder
+457,Weill-Marchesani syndrome,Connective tissue disorder
+1050,Loeys-Dietz syndrome,Connective tissue disorder
+283,Caffey disease,Connective tissue disorder
+284,Dissection of cervical arteries,Connective tissue disorder
+312,Weissenbacher-Zweymuller syndrome,Connective tissue disorder
+455,MASS syndrome,Connective tissue disorder
+480,Apert syndrome,Connective tissue disorder
+887,Ossication of the posterior longitudinal spinal ligaments,Connective tissue disorder
+909,Nevo syndrome,Connective tissue disorder
+302,Epidermolysis bullosa,Dermatological
+414,Ectodermal dysplasia,Dermatological
+146,Ichthyosis,Dermatological
+401,Keratosis palmoplantaria striata,Dermatological
+101,Ichthyosiform erythroderma,Dermatological
+560,Erythrokeratoderma,Dermatological
+703,Epidermolytic hyperkeratosis,Dermatological
+856,Albinism,Dermatological
+301,EBD,Dermatological
+303,"Toenail dystrophy, isolated",Dermatological
+304,Transient bullous of the newborn,Dermatological
+404,Skin fragility-woolly hair syndrome,Dermatological
+558,"Keratoderma, palmoplantar, with deafness",Dermatological
+695,Piebaldism,Dermatological
+702,Cyclic ichthyosis with epidermolytic hyperkeratosis,Dermatological
+704,"Unna-Thost disease, nonepidermolytic",Dermatological
+709,"Nevus, epidermal, epidermolytic hyperkeratotic type",Dermatological
+1051,Self-healing collodion baby,Dermatological
+1136,Incontinentia pigmenti,Dermatological
+1198,Netherton syndrome,Dermatological
+1306,Birt-Hogg-Dube syndrome,Dermatological
+940,Holoprosencephaly,Developmental
+796,Cleft palate,Developmental
+341,Peters anomaly,Developmental
+484,Saethre-Chotzen syndrome,Developmental
+765,Angelman syndrome,Developmental
+667,Leprechaunism,Developmental
+798,Witkop syndrome,Developmental
+948,Noonan syndrome,Developmental
+55,Deafness,"Ear,Nose,Throat"
+888,Enlarged vestibular aqueduct,"Ear,Nose,Throat"
+889,Pendred syndrome,"Ear,Nose,Throat"
+87,Diabetes mellitus,Endocrine
+332,Hypothyroidism,Endocrine
+541,MODY,Endocrine
+786,Pseudohypoaldosteronism,Endocrine
+227,Hyperparathyroidism,Endocrine
+331,Graves disease,Endocrine
+550,Growth hormone,Endocrine
+575,Acromegaly,Endocrine
+1048,Goiter,Endocrine
+1053,Thyroid hormone resistance,Endocrine
+136,Androgen insensitivity,Endocrine
+138,Perineal hypospadias,Endocrine
+218,Thyrotoxic periodic paralysis,Endocrine
+228,Hypocalcemia,Endocrine
+229,Hypocalciuric hypercalcemia,Endocrine
+365,Angiotensin I-converting enzyme,Endocrine
+434,Estrogen resistance,Endocrine
+578,Pseudohypoparathyroidism,Endocrine
+579,Somatotrophinoma,Endocrine
+665,Hyperproinsulinemia,Endocrine
+770,"Angiofibroma, sporadic",Endocrine
+774,"Prolactinoma, hyperparathyroidism, carcinoid syndrome",Endocrine
+1012,Infundibular hypoplasia and hypopituitarism,Endocrine
+1047,Autoimmune thyroid disease,Endocrine
+1072,Hyperthyroidism,Endocrine
+1073,Total iodide organication defect,Endocrine
+1078,Hyperthroidism,Endocrine
+411,Hirschsprung disease,Gastrointestinal
+177,Hypercholanemia,Gastrointestinal
+669,Pancreatic agenesis,Gastrointestinal
+961,"Colonic aganglionosis, total, with small bowel involvement",Gastrointestinal
+48,Blood group,Hematological
+86,Hemolytic anemia,Hematological
+41,Anemia,Hematological
+239,Thrombophilia,Hematological
+448,Factor x deficiency,Hematological
+109,Spherocytosis,Hematological
+235,Platelet defect/deficiency,Hematological
+423,Neutropenia,Hematological
+429,Elliptocytosis,Hematological
+447,Thrombocytopenia,Hematological
+467,Dysfibrinogenemia,Hematological
+446,Hemorrhagic diathesis,Hematological
+466,Afibrinogenemia,Hematological
+681,Polycythemia,Hematological
+682,Thrombocythemia,Hematological
+963,Rh-negative blood type,Hematological
+129,Sea-blue histiocyte disease,Hematological
+316,"Hemosiderosis, systemic, due to aceruloplasminemia",Hematological
+342,Coumarin resistance,Hematological
+422,"Hematopoiesis, cyclic",Hematological
+486,Hypofibrinogenemia,Hematological
+535,Dyserythropoietic anemia,Hematological
+536,Macrothrombocytopenia,Hematological
+542,Adult i phenotype,Hematological
+606,Hemolytic-uremic syndrome,Hematological
+670,Macrocytic anemia,Hematological
+680,"Myelofibrosis, idiopathic",Hematological
+817,Epstein syndrome,Hematological
+819,May-Hegglin anomaly,Hematological
+820,Sebastian syndrome,Hematological
+884,Hypereosinophilic syndrome,Hematological
+962,Rh-mod syndrome,Hematological
+1020,Pyropoikilocytosis,Hematological
+1082,Dystransthyretinemic hyperthyroxinemia,Hematological
+208,Complementary component deficiency,Immunological
+63,Severe combined immunodeciency,Immunological
+245,Malaria,Immunological
+661,Atopy,Immunological
+778,Bare lymphocyte syndrome,Immunological
+119,Autoimmune disease,Immunological
+133,Systemic lupus erythematosus,Immunological
+280,HIV,Immunological
+953,Omenn syndrome,Immunological
+154,Ataxia-telangiectasia,Immunological
+209,Combined immunodeficiency,Immunological
+463,Viral infection,Immunological
+1061,Sepsis,Immunological
+62,Adenosine deaminase deficiency,Immunological
+249,Listeria monocytogenes,Immunological
+366,"SARS, progression of",Immunological
+663,Graft-versus-host disease,Immunological
+664,Allergic rhinitis,Immunological
+694,Mastocytosis with associated hematologic disorder,Immunological
+792,Myeloperoxidase deficiency,Immunological
+868,Leprosy,Immunological
+1029,Wegener granulomatosis,Immunological
+1094,Wiskott-Aldrich syndrome,Immunological
+1238,IgE levels QTL,Immunological
+125,Hypercholesterolemia,Metabolic
+736,Lipodystrophy,Metabolic
+121,Apolipoprotein deficiency,Metabolic
+123,Hypertriglyceridemia,Metabolic
+180,Maple syrup urine disease,Metabolic
+880,Pyruvate dehydrogenase deciency,Metabolic
+919,Insulin resistance,Metabolic
+38,HDL cholesterol level QTL,Metabolic
+126,Abetalipoproteinemia,Metabolic
+128,Hyperlipoproteinemia,Metabolic
+131,Urolithiasise,Metabolic
+238,Homocystinuria,Metabolic
+322,"CPT deficiency, hepatic",Metabolic
+930,Hyperprolinemia,Metabolic
+39,Tangier disease,Metabolic
+124,Hypoalphalipoproteinemia,Metabolic
+127,Hypobetalipoproteinemia,Metabolic
+147,Placental steroid sulfatase deciency,Metabolic
+184,GRACILE syndrome,Metabolic
+231,Creatine phosphokinase,Metabolic
+317,Hypoceruloplasminemia,Metabolic
+363,Dopamine beta-hydroxylase deciency,Metabolic
+523,Favism,Metabolic
+524,G6PD deficiency,Metabolic
+540,Hyperinsulinism,Metabolic
+585,Glutathione synthetase deciency,Metabolic
+605,"Sandho disease, infantile, juvenile, and adult forms",Metabolic
+687,Persistent hyperinsulinemic hypoglycemia of infancy,Metabolic
+897,Myoglobinuria/hemolysis due to PGK deciency,Metabolic
+996,Fanconi-Bickel syndrome,Metabolic
+1027,Hypoglycemia,Metabolic
+1285,3-methylglutaconicaciduria,Metabolic
+202,Fanconi anemia,Multiple
+822,Usher syndrome,Multiple
+186,Mitochondrial complex deciency,Multiple
+419,Dejerine-Sottas disease,Multiple
+782,Waardenburg syndrome,Multiple
+292,Stickler syndrome,Multiple
+464,Walker-Warburg syndrome,Multiple
+323,Rubenstein-Taybi syndrome,Multiple
+417,Waardenburg-Shah syndrome,Multiple
+471,Kallmann syndrome,Multiple
+493,Rieger syndrome,Multiple
+545,Alexander disease,Multiple
+559,Vohwinkel syndrome,Multiple
+685,Jervell and Lange-Nielsen syndrome,Multiple
+793,Roussy-Levy syndrome,Multiple
+815,Carney complex,Multiple
+77,Alagille syndrome,Multiple
+167,Occipital horn syndrome,Multiple
+310,Marshall syndrome,Multiple
+403,Dilated cardiomyopathy with woolly hair and keratoderma,Multiple
+415,Shah-Waardenburg syndrome,Multiple
+416,ABCD syndrome,Multiple
+425,Williams-Beuren syndrome,Multiple
+456,Shprintzen-Goldberg syndrome,Multiple
+468,Aarskog-Scott syndrome,Multiple
+481,Beare-Stevenson cutis gyrata syndrome,Multiple
+482,Craniofacial-skeletal-dermatologic dysplasia,Multiple
+555,Bart-Pumphrey syndrome,Multiple
+556,Hystrix-like ichthyosis with deafness,Multiple
+557,Keratitis-ichthyosis-deafness syndrome,Multiple
+563,Simpson-Golabi-Behmel syndrome,Multiple
+576,McCune-Albright syndrome,Multiple
+633,Costello syndrome,Multiple
+668,Rabson-Mendenhall syndrome,Multiple
+716,Laryngoonychocutaneous syndrome,Multiple
+781,Tietz syndrome,Multiple
+816,Trismus-pseudocomptodactyly syndrome,Multiple
+818,Fechtner syndrome,Multiple
+826,Nijmegen breakage syndrome,Multiple
+871,Craniofacial-deafness-hand syndrome,Multiple
+912,Neuroectodermal tumors,Multiple
+939,Basal cell nevus syndrome,Multiple
+944,VATER association with hydrocephalus,Multiple
+947,Leopard syndrome,Multiple
+949,Zlotogora-Ogur syndrome,Multiple
+955,Parkes Weber syndrome,Multiple
+969,Coffin-Lowry syndrome,Multiple
+1016,Yemenite deaf-blind hypopigmentation syndrome,Multiple
+1033,Barth syndrome,Multiple
+1100,Frasier syndrome,Multiple
+1102,WAGR syndrome,Multiple
+1227,"Craniofacial anomalies, empty sella turcica, corneal endothelial changes",Multiple
+1232,"Immunodysregulation, polyendocrinopathy, and enteropathy, X-linked",Multiple
+1305,Proud syndrome,Multiple
+223,Muscular dystrophy,Muscular
+53,Myopathy,Muscular
+140,Spinal muscular atrophy,Muscular
+266,Myasthenic syndrome,Muscular
+671,Myelodysplastic syndrome,Muscular
+272,Myotonia congenita,Muscular
+385,Becker muscular dystrophy,Muscular
+426,Emery-Dreifuss muscular dystrophy,Muscular
+814,Central core disease,Muscular
+232,Rippling muscle disease,Muscular
+386,Duchenne muscular dystrophy,Muscular
+974,"Cramps, potassium-aggravated",Muscular
+976,Paramyotonia congenita,Muscular
+1130,Miyoshi myopathy,Muscular
+1174,Myotilinopathy,Muscular
+81,Mental retardation,Neurological
+390,Charcot-Marie-Tooth disease,Neurological
+220,Epilepsy,Neurological
+213,Spinocereballar ataxia,Neurological
+30,Alzheimer disease,Neurological
+185,Leigh syndrome,Neurological
+364,Parkinson disease,Neurological
+640,Spastic ataxia/paraplegia,Neurological
+420,Neuropathy,Neurological
+120,Amyloidosis,Neurological
+367,Amyotrophic lateral sclerosis,Neurological
+751,Dementia,Neurological
+219,Ataxia,Neurological
+158,Migraine,Neurological
+369,Lissencephaly,Neurological
+602,Huntington disease,Neurological
+527,Myoclonic epilepsy,Neurological
+36,Cerebral amyloid angiopathy,Neurological
+210,Cerebellar ataxia,Neurological
+211,Episodic ataxia,Neurological
+217,Malignant hyperthermia susceptibility,Neurological
+307,Intervertebral disc disease,Neurological
+370,Subcortical laminar heterotopia,Neurological
+616,Creutzfeldt-Jakob disease,Neurological
+767,Rett syndrome,Neurological
+779,Multiple sclerosis,Neurological
+157,Alternating hemiplegia of childhood,Neurological
+166,Menkes disease,Neurological
+188,Memory impairment,Neurological
+212,"Hemiplegic migraine, familial",Neurological
+368,"Lower motor neuron disease, progressive, without sensory symptoms",Neurological
+374,Jensen syndrome,Neurological
+375,Mohr-Tranebjaerg syndrome,Neurological
+376,Meniere disease,Neurological
+442,Branchiootic syndrome,Neurological
+689,Myokymia with neonatal epilepsy,Neurological
+752,Pallidopontonigral degeneration,Neurological
+753,Supranuclear palsy,Neurological
+754,Tauopathy and respiratory failure,Neurological
+766,PPM-X syndrome,Neurological
+829,Norrie disease,Neurological
+852,Insensitivity to pain,Neurological
+911,Pelizaeus-Merzbacher disease,Neurological
+928,Gerstmann-Straussler disease,Neurological
+929,Prion disease with protracted course,Neurological
+935,Pick disease,Neurological
+975,Hyperkalemic periodic paralysis,Neurological
+1003,"Creatine deciency syndrome, X-linked",Neurological
+1015,PCWH,Neurological
+1080,Amyloid neuropathy,Neurological
+1221,Silver spastic paraplegia syndrome,Neurological
+1270,Primary lateral sclerosis,Neurological
+1289,Convulsions,Neurological
+1303,Infantile spasm syndrome,Neurological
+1304,Partington syndrome,Neurological
+70,Obesity,Nutritional
+76,"Leanness, inherited",Nutritional
+644,Anorexia nervosa,Nutritional
+45,Retinitis pigmentosa,Ophthamological
+325,Cataract,Ophthamological
+42,Cone dystrophy,Ophthamological
+122,Corneal dystrophy,Ophthamological
+324,Leber congenital amaurosis,Ophthamological
+44,Macular dystrophy,Ophthamological
+215,Night blindness,Ophthamological
+607,Macular degeneration,Ophthamological
+340,Glaucoma,Ophthamological
+441,Anterior segment anomalies and cataract,Ophthamological
+851,Retinal cone dsytrophy,Ophthamological
+43,Fundus albipunctatus,Ophthamological
+282,Achromatopsia,Ophthamological
+744,Exudative vitreoretinopathy,Ophthamological
+46,Stargardt disease,Ophthamological
+454,Ectopia,Ophthamological
+491,Iridogoniodysgenesis,Ophthamological
+858,Optic atrophy,Ophthamological
+873,"Coloboma, ocular",Ophthamological
+293,Wagner syndrome,Ophthamological
+305,Fuchs endothelial corneal dystrophy,Ophthamological
+490,Axenfeld anomaly,Ophthamological
+492,Iris hypoplasia and glaucoma,Ophthamological
+828,Coats disease,Ophthamological
+872,"Aniridia, type II",Ophthamological
+874,Eye anomalies,Ophthamological
+875,Foveal hypoplasia,Ophthamological
+876,Keratitis,Ophthamological
+878,Optic nerve hypoplasia/aplasia,Ophthamological
+904,Ring dermoid of cornea,Ophthamological
+958,"Butterfly dystrophy, retinal",Ophthamological
+959,"Foveomacular dystrophy, adult-onset, with choroidal neovascularization",Ophthamological
+965,Bothnia retinal dystrophy,Ophthamological
+966,Newfoundland rod-cone dystrophy,Ophthamological
+1091,"Maculopathy, bull's-eye",Ophthamological
+1092,Vitelliform macular dystrophy,Ophthamological
+1181,Enhanced S-cone syndrome,Ophthamological
+1208,Pigmented paravenous chorioretinal atrophy,Ophthamological
+1228,Keratoconus,Ophthamological
+130,Schizophrenia,Psychiatric
+570,Autism,Psychiatric
+189,Obsessive-compulsive disorder,Psychiatric
+270,Nicotine addiction,Psychiatric
+526,Insomnia,Psychiatric
+1245,Asperger syndrome,Psychiatric
+645,Seasonal affective disorder,Psychiatric
+1002,Anxiety-related personality traits,Psychiatric
+164,Renal tubular acidosis,Renal
+80,Renal tubular dysgenesis,Renal
+216,Hypokalemic periodic paralysis,Renal
+982,Liddle syndrome,Renal
+608,Nephropathy-hypertension,Renal
+1040,"Glomerulocystic kidney disease, hypoplastic",Renal
+1099,Denys-Drash syndrome,Renal
+1101,Mesangial sclerosis,Renal
+68,Asthma,Respiratory
+187,Central hypoventilation syndrome,Respiratory
+902,Emphysema,Respiratory
+1307,"Pneumothorax, primary spontaneous",Respiratory
+74,Spondyloepiphyseal dysplasia,Skeletal
+470,Jackson-Weiss syndrome,Skeletal
+472,Pfeiffer syndrome,Skeletal
+476,Crouzon syndrome,Skeletal
+483,Craniosynostosis,Skeletal
+797,Hypodontia,Skeletal
+799,Parietal foramina,Skeletal
+289,Kniest dysplasia,Skeletal
+291,SMED Strudwick type,Skeletal
+313,Pseudoachondroplasia,Skeletal
+409,Diastrophic dysplasia,Skeletal
+473,Achondroplasia,Skeletal
+477,Hypochondroplasia,Skeletal
+478,Muenke syndrome,Skeletal
+479,"Thanatophoric dysplasia, types I and II",Skeletal
+502,Larson syndrome,Skeletal
+503,Spondylocarpotarsal synostosis syndrome,Skeletal
+553,Oculodentodigital dysplasia,Skeletal
+554,Syndactyly,Skeletal
+627,Vertical talus,Skeletal
+877,Morning glory disc anomaly,Skeletal
+879,Oligodontia,Skeletal
+991,Solitary median maxillary central incisor,Skeletal
+69,"Beta-2-adrenoreceptor agonist, reduced response to",Unclassified
+134,Aquaporin-1 deficiency,Unclassified
+294,"Aneurysm, familial arterial",Unclassified
+380,Benzene toxicity,Unclassified
+643,Alcohol dependence,Unclassified
+747,van Buchem disease,Unclassified
+842,Placental abruption,Unclassified
+941,Bannayan-Riley-Ruvalcaba syndrome,Unclassified
+1081,"Carpal tunnel syndrome, familial",Unclassified

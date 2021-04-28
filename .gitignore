@@ -3,5 +3,10 @@
 build/
 dist/
 *.egg-info/
+*.npz
+*.npy
+venv/
 *.swp
+saved/
+data/
 DATA/
